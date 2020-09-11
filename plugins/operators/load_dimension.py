@@ -5,8 +5,8 @@ from airflow.utils.decorators import apply_defaults
 class LoadDimensionOperator(BaseOperator):
 
     ui_color = '#80BD9E'
-    delete_sql = 'DELETE FROM {};'
-    insert_sql = 'INSERT INTO {} ({});'
+    delete_sql = "DELETE FROM {};"
+    insert_sql = "INSERT INTO {} ({});"
 
     @apply_defaults
     def __init__(self,

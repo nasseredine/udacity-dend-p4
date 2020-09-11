@@ -23,7 +23,7 @@ default_args = {
 
 dag = DAG('udac_example_dag',
           default_args=default_args,
-          description='Load and transform data in Redshift with Airflow',
+          description="Load and transform data in Redshift with Airflow",
           schedule_interval='0 * * * *'
         )
 
@@ -32,9 +32,9 @@ start_operator = DummyOperator(task_id='Begin_execution',  dag=dag)
 stage_events_to_redshift = StageToRedshiftOperator(
     task_id='Stage_events',
     dag=dag,
-    redshift_conn_id="redshift",
-    aws_credentials_id="aws_credentials",
-    table_name="public.staging_events",
+    redshift_conn_id='redshift',
+    aws_credentials_id='aws_credentials',
+    table_name='public.staging_events',
     s3_bucket=S3_BUCKET,
     s3_key=LOG_DATA_KEY,
     json_option=LOG_JSON_PATH,
@@ -43,9 +43,9 @@ stage_events_to_redshift = StageToRedshiftOperator(
 stage_songs_to_redshift = StageToRedshiftOperator(
     task_id='Stage_songs',
     dag=dag,
-    redshift_conn_id="redshift",
-    aws_credentials_id="aws_credentials",
-    table_name="public.staging_songs",
+    redshift_conn_id='redshift',
+    aws_credentials_id='aws_credentials',
+    table_name='public.staging_songs',
     s3_bucket=S3_BUCKET,
     s3_key=SONG_DATA_KEY,
 )
@@ -61,7 +61,7 @@ load_songplays_table = LoadFactOperator(
 load_user_dimension_table = LoadDimensionOperator(
     task_id='Load_user_dim_table',
     dag=dag,
-    redshift_conn_id="redshift",
+    redshift_conn_id='redshift',
     table_name='public.users',
     select_sql=SqlQueries.user_table_insert,
 )
@@ -69,7 +69,7 @@ load_user_dimension_table = LoadDimensionOperator(
 load_song_dimension_table = LoadDimensionOperator(
     task_id='Load_song_dim_table',
     dag=dag,
-    redshift_conn_id="redshift",
+    redshift_conn_id='redshift',
     table_name='public.songs',
     select_sql=SqlQueries.song_table_insert,
 )
@@ -77,7 +77,7 @@ load_song_dimension_table = LoadDimensionOperator(
 load_artist_dimension_table = LoadDimensionOperator(
     task_id='Load_artist_dim_table',
     dag=dag,
-    redshift_conn_id="redshift",
+    redshift_conn_id='redshift',
     table_name='public.artists',
     select_sql=SqlQueries.artist_table_insert,
 )
@@ -85,7 +85,7 @@ load_artist_dimension_table = LoadDimensionOperator(
 load_time_dimension_table = LoadDimensionOperator(
     task_id='Load_time_dim_table',
     dag=dag,
-    redshift_conn_id="redshift",
+    redshift_conn_id='redshift',
     table_name='public.time',
     select_sql=SqlQueries.time_table_insert,
 )
@@ -93,7 +93,7 @@ load_time_dimension_table = LoadDimensionOperator(
 run_quality_checks = DataQualityOperator(
     task_id='Run_data_quality_checks',
     dag=dag,
-    redshift_conn_id="redshift",
+    redshift_conn_id='redshift',
     tests = [
         {
             'sql': "SELECT COUNT(*) FROM users WHERE userid is NULL;",
